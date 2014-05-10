@@ -74,7 +74,7 @@ exports.createRoom = function(room){
       if(result[0].count === 0){
         //insert room
         queryString = 'Insert into rooms (name) values("'+room+'");';
-        self.dbConnect.query(queryString, function(err, result){
+        this.dbConnect.query(queryString, function(err, result){
           if(err){
             throw err;
           }

@@ -8,12 +8,16 @@ USE chat;
 CREATE TABLE users (
   id INT not null auto_increment,
   name VARCHAR(255),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   primary key(id)
 );
 
 CREATE TABLE rooms (
   id INT not null auto_increment,
   name VARCHAR(255),
+  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   primary key(id)
 );
 
@@ -23,6 +27,7 @@ CREATE TABLE messages (
   user_id INT,
   room_id INT,
   createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   primary key(id),
   foreign key(user_id) REFERENCES users(id)
   on update cascade,

@@ -3,7 +3,7 @@ var http = require("http");
 var handleRequest = require('./request-handler');
 var urlParser = require('url');
 var utils = require('./utils');
-var db = require('./db.js');
+var db = require('./orm.js');
 var roomHandleRequest = require('./room-handler');
 var userHandleRequest = require('./user-handler');
 
@@ -31,7 +31,7 @@ var routes = {
 };
 
 //start up db
-db.dbConnect.connect();
+db.dbConnect();
 
 var server = http.createServer(function(request, response){
   var url = urlParser.parse(request.url);
