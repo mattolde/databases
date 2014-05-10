@@ -12,7 +12,7 @@ exports.dbConnect = mysql.createConnection({
   database: "chat"
 });
 
-var valueNames = "select users.name AS username,rooms.name AS roomname,message FROM messages JOIN rooms ON(rooms.id = messages.room_id) JOIN users ON(users.id = messages.user_id)";
+var valueNames = "SELECT messages.id AS objectId, users.name AS username,rooms.name AS roomname,message FROM messages JOIN rooms ON(rooms.id = messages.room_id) JOIN users ON(users.id = messages.user_id)";
 
 exports.getAllMessages = function(callback){
   var queryString = valueNames + ';';
@@ -43,6 +43,7 @@ exports.createMessage = function(message){
 };
 
 exports.createUser = function(user){
+  var self = this;
   //check if user with same name exists, if not create it
   var queryString = 'Select count(*) AS count from users where name="'+user+'";';
   this.dbConnect.query(queryString, function(err, result){
@@ -52,7 +53,7 @@ exports.createUser = function(user){
       if(result[0].count === 0){
         //insert user
         queryString = 'Insert into users (name) values("'+user+'");';
-        this.dbConnect.query(queryString, function(err, result){
+        self.dbConnect.query(queryString, function(err, result){
           if(err){
             throw err;
           }
@@ -63,6 +64,7 @@ exports.createUser = function(user){
 };
 
 exports.createRoom = function(room){
+  var self = this;
   //check if room with same name exists, if not create it
   var queryString = 'Select count(*) AS count from rooms where name="'+room+'";';
   this.dbConnect.query(queryString, function(err, result){
@@ -72,7 +74,7 @@ exports.createRoom = function(room){
       if(result[0].count === 0){
         //insert room
         queryString = 'Insert into rooms (name) values("'+room+'");';
-        this.dbConnect.query(queryString, function(err, result){
+        self.dbConnect.query(queryString, function(err, result){
           if(err){
             throw err;
           }

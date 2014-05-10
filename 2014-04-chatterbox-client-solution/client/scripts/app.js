@@ -26,7 +26,8 @@ app = {
 
       var message = {
         username: app.username,
-        text: app.$text.val()
+        message: app.$text.val(),
+        roomname: 'lobby',
       };
 
       app.$text.val('');
@@ -36,7 +37,7 @@ app = {
 
     renderMessage: function(message){
       var $user = $("<div>", {class: 'user'}).text(message.username);
-      var $text = $("<div>", {class: 'text'}).text(message.text);
+      var $text = $("<div>", {class: 'text'}).text(message.message);
       var $message = $("<div>", {class: 'chat', 'data-id': message.objectId }).append($user, $text);
       return $message;
     },
@@ -51,7 +52,7 @@ app = {
       for( var i = messages.length; i > 0; i-- ){
         var message = messages[i-1];
         // check if objectId is in dom.
-        if( $('#chats').find('.message[data-id='+message.objectId+']').length ){ continue; }
+        if( $('#chats').find('.chat[data-id='+message.objectId+']').length ){ continue; }
         $('#chats').prepend(app.renderMessage(message));
       }
     },
