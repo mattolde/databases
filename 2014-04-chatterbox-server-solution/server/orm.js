@@ -36,11 +36,15 @@ exports.dbConnect = function(){
           message: Sequelize.STRING
         });
 
-        Messages.hasOne(Rooms);
+        // Messages.hasOne(Rooms);
         Rooms.belongsTo(Messages);
 
-        Messages.hasOne(Users);
+        // Messages.hasOne(Users);
         Users.belongsTo(Messages);
+
+        Users.sync();
+        Rooms.sync();
+        Messages.sync();
       }
     });
 };
@@ -85,23 +89,4 @@ exports.createMessage = function(message){
 
         });
     });
-
-
-
 };
-
-// exports.createUser = function(user){
-//   Users
-//     .findOrCreate({ name: user })
-//     .success(function(user, created) {
-//       return user;
-//     });
-// };
-
-// exports.createRoom = function(room){
-//   Rooms
-//     .findOrCreate({ name: room })
-//     .success(function(room, created) {
-//       return room;
-//     });
-// };
